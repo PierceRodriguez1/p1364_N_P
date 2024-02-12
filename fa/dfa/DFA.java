@@ -1,27 +1,51 @@
 package fa.dfa;
 
+import java.io.EOFException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import fa.State;
 
 public class DFA implements DFAInterface{
 
+    private Set<String> startStates = new HashSet<>();
+    private Set<String> finalStates = new HashSet<>();
+    private Set<String> normalStates = new HashSet<>();
+
+    private HashMap<Character, String> transition = new HashMap<>();
+
     @Override
-    public boolean addState(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addState'");
+    public boolean addState(String name){
+       
+        if(normalStates.contains(name)){
+            System.out.println("State name already exists");
+        } 
+          return normalStates.add(name);
+
     }
 
     @Override
     public boolean setFinal(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFinal'");
+        
+        if(!finalStates.contains(name)){
+            normalStates.remove(name);
+            return finalStates.add(name);
+        }
+        System.out.println("State is already a final state");
+        return false;
+
     }
 
     @Override
     public boolean setStart(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setStart'");
+        
+        if(!startStates.contains(name)){
+            normalStates.remove(name);
+            return startStates.add(name);
+        }
+        System.out.println("State is already a start state");
+        return false;
     }
 
     @Override
@@ -50,15 +74,23 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean isFinal(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isFinal'");
+        if(finalStates.contains(name)){
+            return true;
+        }
+        System.out.println(name + " is not a final state");
+        return false;
     }
 
     @Override
     public boolean isStart(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isStart'");
+        
+        if(startStates.contains(name)){
+            return true;
+        }
+        System.out.println(name + " is not a start state");
+        return false;
     }
+    
 
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb) {
