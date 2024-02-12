@@ -62,14 +62,13 @@ public class DFA implements DFAInterface{
 
     @Override
     public Set<Character> getSigma() {
-        
-        String str = new String();
-
+        //String str = new String();
+        Set<Character> sigmaSet = new HashSet<>();
         for(char sigma: alphabet){
-            str += sigma + ", ";
+        sigmaSet.add(sigma);
         }
 
-        return str;
+        return sigmaSet;
 
     }
 
