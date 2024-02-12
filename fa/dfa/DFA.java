@@ -12,6 +12,7 @@ public class DFA implements DFAInterface{
     private Set<String> startStates = new HashSet<>();
     private Set<String> finalStates = new HashSet<>();
     private Set<String> normalStates = new HashSet<>();
+    private Set<Character> alphabet = new HashSet<>();
 
     private HashMap<Character, String> transition = new HashMap<>();
 
@@ -50,8 +51,7 @@ public class DFA implements DFAInterface{
 
     @Override
     public void addSigma(char symbol) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addSigma'");
+        alphabet.add(symbol);
     }
 
     @Override
@@ -62,8 +62,15 @@ public class DFA implements DFAInterface{
 
     @Override
     public Set<Character> getSigma() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSigma'");
+        
+        String str = new String();
+
+        for(char sigma: alphabet){
+            str += sigma + ", ";
+        }
+
+        return str;
+
     }
 
     @Override
@@ -90,7 +97,6 @@ public class DFA implements DFAInterface{
         System.out.println(name + " is not a start state");
         return false;
     }
-    
 
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb) {
