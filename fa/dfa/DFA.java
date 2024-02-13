@@ -11,7 +11,7 @@ public class DFA implements DFAInterface{
 
     private HashSet<DFAState> states = new HashSet<>();
     private HashSet<DFAState> finalStates = new HashSet<>();
-    private HashSet<DFAState> alphabet = new HashSet<>();
+    private HashSet<Character> alphabet = new HashSet<>();
 
     private HashMap<Character, Character> sigma = new HashMap<>();
     private DFAState start;
@@ -51,7 +51,7 @@ public class DFA implements DFAInterface{
 
     @Override
     public Set<Character> getSigma() {
-        //String str = new String();
+        
         Set<Character> sigmaSet = new HashSet<>();
         for(char sigma: alphabet){
         sigmaSet.add(sigma);
@@ -63,9 +63,19 @@ public class DFA implements DFAInterface{
 
     @Override
     public State getState(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getState'");
+        
+        if(states.contains(name)){
+            return new DFAState(name);
+        } else if(finalStates.contains(name)){
+            return new DFAState(name);
+        } else if (start.getName() == name){
+            return new DFAState(name);
+        }
+
+        return null;
+        
     }
+    
 
     @Override
     public boolean isFinal(String name) {
