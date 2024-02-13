@@ -64,9 +64,9 @@ public class DFA implements DFAInterface{
     @Override
     public State getState(String name) {
         
-        if(states.contains(name)){
+        if(states.contains(name) == true){
             return new DFAState(name);
-        } else if(finalStates.contains(name)){
+        } else if(finalStates.contains(name) == true){
             return new DFAState(name);
         } else if (start.getName() == name){
             return new DFAState(name);
@@ -79,7 +79,7 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean isFinal(String name) {
-        if(finalStates.contains(name)){
+        if(finalStates.contains(name) == true){
             return true;
         }
         System.out.println(name + " is not a final state");
@@ -89,11 +89,11 @@ public class DFA implements DFAInterface{
     @Override
     public boolean isStart(String name) {
         
-        if(startStates.contains(name)){
+        if (start.getName() == name){
             return true;
         }
-        System.out.println(name + " is not a start state");
         return false;
+        
     }
 
     @Override
