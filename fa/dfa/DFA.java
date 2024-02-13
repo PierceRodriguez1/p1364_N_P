@@ -1,7 +1,9 @@
 package fa.dfa;
 
+import java.io.EOFException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import fa.State;
@@ -98,17 +100,32 @@ public class DFA implements DFAInterface{
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb) {
         
-        if(!states.contains(fromState) || finalStates.contains(fromState) || start.getName() != fromState){
-            return false;
+
+        Iterator<DFAState> i = states.iterator();
+
+        while(i.hasNext()){
+            if(!((State) i).getName().equals(fromState) || !((State) i).getName().equals(toState)){
+                return false;
+            }
         }
 
-        if(!states.contains(toState) || finalStates.contains(toState) || start.getName() != toState){
+        Iterator<DFAState> h = finalStates.iterator();
+
+        while(h.hasNext()){
+            if(!((State) h).getName().equals(fromState) || !((State) h).getName().equals(toState)){
+                return false;
+            }
+        }
+        
+        if( start.getName() != fromState || start.getName() != toState){
             return false;
         }
 
         if (!alphabet.contains(onSymb)) {
             return false;
         }
+
+        
     }
 
     @Override
