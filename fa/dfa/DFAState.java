@@ -6,7 +6,7 @@ import java.util.Map;
 import fa.State;
 
 public class DFAState extends State{
-    
+
     private Map<Character, State> transitionMap;
     protected DFAState newState;
 
@@ -24,7 +24,7 @@ public class DFAState extends State{
     }
 
     public boolean setName(String newName) {
-        if(newName != null && !newName.isEmpty()){
+        if(newName != null){
             newState = new DFAState(newName);
             return true;
         }else{
