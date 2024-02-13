@@ -6,8 +6,10 @@ import java.util.Map;
 import fa.State;
 
 public class DFAState extends State{
-    private Map<Character, State> transitionMap;
     
+    private Map<Character, State> transitionMap;
+    protected DFAState newState;
+
     public DFAState(String name) {
         super(name);
         transitionMap = new HashMap<>();
@@ -19,6 +21,15 @@ public class DFAState extends State{
 
     public State nextState(char symbol){
         return transitionMap.get(symbol);
+    }
+
+    public boolean setName(String newName) {
+        if(newName != null && !newName.isEmpty()){
+            newState = new DFAState(newName);
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

@@ -1,6 +1,5 @@
 package fa.dfa;
 
-import java.io.EOFException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
