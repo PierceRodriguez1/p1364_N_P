@@ -9,44 +9,33 @@ import fa.State;
 
 public class DFA implements DFAInterface{
 
-    private Set<String> startStates = new HashSet<>();
-    private Set<String> finalStates = new HashSet<>();
-    private Set<String> normalStates = new HashSet<>();
-    private Set<Character> alphabet = new HashSet<>();
+    private HashSet<DFAState> states = new HashSet<>();
+    private HashSet<DFAState> finalStates = new HashSet<>();
+    private HashSet<DFAState> alphabet = new HashSet<>();
 
-    private HashMap<Character, String> transition = new HashMap<>();
+    private HashMap<Character, Character> sigma = new HashMap<>();
+    private DFAState start;
 
     @Override
     public boolean addState(String name){
        
-        if(normalStates.contains(name)){
-            System.out.println("State name already exists");
-        } 
-          return normalStates.add(name);
+       return states.add(new DFAState(name));
 
     }
 
     @Override
     public boolean setFinal(String name) {
         
-        if(!finalStates.contains(name)){
-            normalStates.remove(name);
-            return finalStates.add(name);
-        }
-        System.out.println("State is already a final state");
-        return false;
-
+        states.remove(name);
+        return finalStates.add(new DFAState(name));
+        
     }
 
     @Override
     public boolean setStart(String name) {
-        
-        if(!startStates.contains(name)){
-            normalStates.remove(name);
-            return startStates.add(name);
-        }
-        System.out.println("State is already a start state");
-        return false;
+      
+        return start.setName(name);
+    
     }
 
     @Override
