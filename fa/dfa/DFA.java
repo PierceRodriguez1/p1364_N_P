@@ -98,8 +98,18 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addTransition'");
+        
+        if(!states.contains(fromState) || finalStates.contains(fromState) || start.getName() != fromState){
+            return false;
+        }
+
+        if(!states.contains(toState) || finalStates.contains(toState) || start.getName() != toState){
+            return false;
+        }
+
+        if (!alphabet.contains(onSymb)) {
+            return false;
+        }
     }
 
     @Override
