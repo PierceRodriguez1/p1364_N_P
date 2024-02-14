@@ -1,32 +1,50 @@
 package fa.dfa;
 
-import java.io.EOFException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 import fa.State;
-
+/**
+ * This class creates 3 hashsets, 1 hashmap and a DFAState to handle
+ * creating a deterministic finite automata. We have the functionality
+ * to handle creating a DFA, printing out its five tuple as well as
+ * determining if a string is accepted by that machine.
+ * @author Pierce Rodriguez and Nolan Stetz
+ */
 public class DFA implements DFAInterface{
+    //Instantiating our hashsets for regular states, final states and our alphabet
+    private Set<DFAState> states;
+    private Set<DFAState> finalStates;
+    private Set<Character> alphabet;
 
-    private HashSet<DFAState> states = new HashSet<>();
-    private HashSet<DFAState> finalStates = new HashSet<>();
-    private HashSet<Character> alphabet = new HashSet<>();
-
-    private HashMap<Character, Character> sigma = new HashMap<>();
+    //Instantiating our hashmap for our transitions**************
+    //private Map<Character, DFAState> transitions;***********PROLLY DONT NEED
+    
+    //Instantiating our start DFAState
     private DFAState start;
 
+    /**
+     * Constructor that initializes empty DFA
+     */
+    public DFA(){
+        states = new HashSet<>();
+        finalStates = new HashSet<>();
+        alphabet = new HashSet<>();
+        start = null;
+    }
     @Override
     public boolean addState(String name){
-       
+       //adding a new state to our states hashset
        return states.add(new DFAState(name));
 
     }
 
     @Override
     public boolean setFinal(String name) {
-        
+        //setting our final state by removing it from regular states hashset and 
+        //adding it to our final states
         states.remove(name);
         return finalStates.add(new DFAState(name));
         
@@ -34,13 +52,14 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean setStart(String name) {
-      
+      //creates a new state to become a start state.
         return start.setName(name);
     
     }
 
     @Override
     public void addSigma(char symbol) {
+        //adds a new character to alphabet
         alphabet.add(symbol);
     }
 
@@ -53,21 +72,25 @@ public class DFA implements DFAInterface{
     @Override
     public Set<Character> getSigma() {
         
-        Set<Character> sigmaSet = new HashSet<>();
+        Set<Character> sigmaSet = new HashSet<>(); //creating a new set to return
+        
         for(char sigma: alphabet){
-        sigmaSet.add(sigma);
+        sigmaSet.add(sigma); //looping thru alphabet to add to new set
         }
 
-        return sigmaSet;
+        return sigmaSet; //returning alphabet in new set
 
     }
 
     @Override
     public State getState(String name) {
-        
-        if(states.contains(name) == true){
+        //checking all three places(regular states, start and final) a state can be 
+        //to see if it's created
+        DFAState getState = new DFAState(name); //creating a new state to check against hashset instead of string
+
+        if(states.contains(getState) == true){
             return new DFAState(name);
-        } else if(finalStates.contains(name) == true){
+        } else if(finalStates.contains(getState) == true){
             return new DFAState(name);
         } else if (start.getName() == name){
             return new DFAState(name);
@@ -80,6 +103,7 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean isFinal(String name) {
+        //checking if state name given is a final state and then return true or false
         if(finalStates.contains(name) == true){
             return true;
         }
@@ -89,7 +113,7 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean isStart(String name) {
-        
+        //checking if state name given is a start state and then return true or false
         if (start.getName() == name){
             return true;
         }

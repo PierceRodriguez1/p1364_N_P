@@ -1,55 +1,48 @@
-# Project #: Project Name
+# Project 1: Deterministic Finite Automata 
 
-* Author: Your Name
-* Class: CS354 Section #
-* Semester:
+* Author: Nolan Stetz and Pierce Rodriguez
+* Class: CS361 Section 2
+* Semester: Spring 2024 
 
 ## Overview
 
-Concisely explain what the program does. If this exceeds a couple of
-sentences, you're going too far. Generally you should be pulling this
-right from the project specification. I don't want you to just cut and
-paste, but paraphrase what is stated in the project specification.
+This Java application displays an animated marshmallow with features based on
+user input specifying sponginess, color, sugar density, and burn resistance.
 
 ## Reflection
 
-Write a two paragraph reflection describing your experience with this
-project.  Talk about what worked well and what was challenging.  
-Did you run into an issue that took some time to figure out?  
-Tell us about it. What did you enjoy, what was less desirable? Feel
-free to add other items (within the two paragraph limit).
+There were parts of this that were really challenging, particularly figuring 
+out which variables to use and how to do write the code to do the math I 
+wanted it to do. Once I figured that out, I really enjoyed adding some cool
+visuals, like the flying marshmallow!
+
+- What worked well and what was a struggle? 
+  - Problem solving the math was a challenge.
+- What concepts still aren't quite clear?
+  - I still need to better understand the order of operations.
+- What techniques did you use to make your code easy to debug and modify?
+  - I put a lot of comments in my code and used print statements to show values of computations.
+- What would you change about your design process?
+  - Draw it on a piece of paper and figure out the ratios before starting to code.
+- If you could go back in time, what would you tell yourself about doing this project?
+  - Start early, and if I encounter a problem, ask for help early.
 
 ## Compiling and Using
 
-This section should tell the user how to compile your code.  It is
-also appropriate to instruct the user how to use your code. Does your
-program require user input? If so, what does your user need to know
-about it to use it as quickly as possible?
+To compile, execute the following command in the main project directory:
+```
+$ javac Marshmallow.java
+```
 
-## Results
+Run the compiled class with the command:
+```
+$ java Marshmallow
+```
 
-This section presents timing and other results of the experiments that
-you were asked to perform as part of the project.
+You will be prompted for integer values representing distance to the fire,
+fire intensity, marshmallow burn resistance, and marshmallow sugar density.
 
 ## Sources used
 
-If you used any sources outside of the lecture notes, class lab files,
-or text book you need to list them here. If you looked something up on
-stackoverflow.com and fail to cite it in this section it will be
-considered plagiarism and be dealt with accordingly. So be safe CITE!
-
-Finally, remove these instructions from your README.md after you are finished!
-
-----------
-
-## Notes
-
-* This README.md template is using Markdown. Here is some help on using Markdown:
-  [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-
-
-* Markdown can be edited and viewed natively in most IDEs such as Eclipse and VS Code. Just toggle
-  between the Markdown source and preview tabs.
-
-* To preview your README.md output online, you can copy your file contents to a Markdown editor/previewer
-  such as [https://stackedit.io/editor](https://stackedit.io/editor).
+- I found code for adding sound effects on stackoverflow.com.
+[Sound Effects in Java](http://stackoverflow.com/questions/20354508/sound-effects-in-java)
