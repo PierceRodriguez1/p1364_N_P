@@ -64,9 +64,26 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean accepts(String s) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'accepts'");
+        if(s.length() == 0 || start == null){
+            return false;
+        }
+        return accepts(s, start);
     }
+
+    private boolean accepts(String s, DFAState state){
+        if(state == null){
+            return false;
+        }else if(s.length() == 1){
+            if(finalStates.contains(state.getTransitionState(s.charAt(0)))){
+            return true;
+        }
+        return false;
+        }else{
+            return accepts(s.substring(1), (DFAState) state.getTransitionState(s.charAt(0)));
+        }
+    }
+
+
 
     @Override
     public Set<Character> getSigma() {
