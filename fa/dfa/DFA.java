@@ -66,10 +66,9 @@ public class DFA implements DFAInterface{
         states.add(start); // Add the start state to the set of states
         return true;
     }
-    return false;
 
     // If the start state has already been initialized, just set its name
-    
+    return start.setName(name);
     
     }
 
