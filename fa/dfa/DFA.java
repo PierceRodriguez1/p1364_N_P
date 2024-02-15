@@ -102,8 +102,9 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean isFinal(String name) {
+        DFAState isFinal = new DFAState(name);
         //checking if state name given is a final state and then return true or false
-        if(finalStates.contains(name) == true){
+        if(finalStates.contains(isFinal) == true){
             return true;
         }
         System.out.println(name + " is not a final state");
