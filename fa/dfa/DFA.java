@@ -141,7 +141,7 @@ public class DFA implements DFAInterface{
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb) {
         
-
+/* 
         Iterator<DFAState> i = states.iterator();
 
         while(i.hasNext()){
@@ -165,7 +165,18 @@ public class DFA implements DFAInterface{
         if (!alphabet.contains(onSymb)) {
             return false;
         }
+*/
 
+        DFAState DFAFrom = getDFAState(fromState);
+        DFAState DFAto = getDFAState(toState);
+
+
+        if (DFAFrom != null && DFAto != null && alphabet.contains(onSymb)) {
+            DFAFrom.addStateTransition(onSymb, DFAto);
+            return true;
+        }
+
+        return false;
         
     }
 
