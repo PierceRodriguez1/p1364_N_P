@@ -226,7 +226,6 @@ public class DFA implements DFAInterface{
             for(State state: states){
                 str.append(getState(state.getName())).append("\t");
                 for(Character symb : getSigma()){
-                    //State next = transitions.getOrDefault(state, new HashMap<>()).get(symb);
                     State next = transitions.getOrDefault(new HashMap<>().get(symb), (DFAState) state);
                     if(next == null){
                         str.append("err\t");
