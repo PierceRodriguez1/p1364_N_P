@@ -60,5 +60,8 @@ public class DFAState extends State{
             return false;
         }
     }
+    public void removeTransition(Character symbol) {
+       transitionMap.remove(symbol);
+    }
 
 }

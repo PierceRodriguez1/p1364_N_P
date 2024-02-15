@@ -200,8 +200,46 @@ public class DFA implements DFAInterface{
 
     @Override
     public DFA swap(char symb1, char symb2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'swap'");
+        DFA newDFA = new DFA();
+
+        // Copy states
+        for (DFAState state : states) {
+            newDFA.addState(state.getName());
+            if (finalStates.contains(state.getName())) {
+                newDFA.setFinal(state.getName());
+            }
+        }
+    
+        // Copy alphabet
+        for (Character symbol : alphabet) {
+            newDFA.addSigma(symbol);
+        }
+    
+        // Copy transitions
+        for (DFAState fromState : states) {
+            for (Character symbol : alphabet) {
+                DFAState toState = (DFAState) fromState.getTransitionState(symbol);
+                if (toState != null) {
+                    newDFA.addTransition(fromState.getName(), toState.getName(), symbol);
+                }
+            }
+        }
+    
+        // Swap symbols in transitions
+        for (DFAState fromState : newDFA.states) {
+            for (Character symbol : newDFA.alphabet) {
+                DFAState toState = (DFAState) fromState.getTransitionState(symbol);
+                if (toState != null) {
+                    fromState.removeTransition(symbol);
+                    newDFA.addTransition(fromState.getName(), toState.getName(), (symbol == symb1) ? symb2 : (symbol == symb2) ? symb1 : symbol);
+                }
+            }
+        }
+    
+        // Copy start state
+        newDFA.setStart(start.getName());
+    
+        return newDFA;
     }
 
     public String toString(){
