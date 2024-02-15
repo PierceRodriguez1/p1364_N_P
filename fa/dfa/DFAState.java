@@ -33,6 +33,10 @@ public class DFAState extends State{
     public void addStateTransition(char symbol, State nextState){
         transitionMap.put(symbol, nextState);
     }
+
+    public State getTransitionState(char symbol){
+        return transitionMap.get(symbol);
+    }
     /**
      * Returns the next state given a character. We already know what state we 
      * are at.
