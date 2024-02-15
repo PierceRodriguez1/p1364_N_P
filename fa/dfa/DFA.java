@@ -234,7 +234,7 @@ public class DFA implements DFAInterface{
                         str.append(next.getName()).append("\t");
                     }
                 }
-                str.append("\n")
+                str.append("\n");
             }
             str.append("\n");
             str.append("q0 = ").append(start).append("\n");
