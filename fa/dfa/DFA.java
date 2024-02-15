@@ -52,8 +52,15 @@ public class DFA implements DFAInterface{
 
     @Override   
     public boolean setStart(String name) {
-      //creates a new state to become a start state.
-        return start.setName(name);
+        // Check if the start state has been initialized, if not, create a new one
+    if (start == null) {
+        start = new DFAState(name);
+        states.add(start); // Add the start state to the set of states
+        return true;
+    }
+
+    // If the start state has already been initialized, just set its name
+    return start.setName(name);
     
     }
 
