@@ -3,6 +3,7 @@ package fa.dfa;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import fa.State;
@@ -14,14 +15,13 @@ import fa.State;
  * @author Pierce Rodriguez and Nolan Stetz
  */
 public class DFA implements DFAInterface{
+    
     //Instantiating our hashsets for regular states, final states and our alphabet
     private Set<DFAState> states;
     private Set<DFAState> finalStates;
     private Set<Character> alphabet;
 
-    //Instantiating our hashmap for our transitions**************
-    //private Map<Character, DFAState> transitions;***********PROLLY DONT NEED
-    
+    private Map<Character, DFAState> transitions;
     //Instantiating our start DFAState
     private DFAState start;
 
@@ -32,6 +32,7 @@ public class DFA implements DFAInterface{
         states = new HashSet<>();
         finalStates = new HashSet<>();
         alphabet = new HashSet<>();
+        transitions = new HashMap<>();
         start = null;
     }
     @Override
