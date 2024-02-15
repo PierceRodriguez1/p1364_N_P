@@ -156,5 +156,46 @@ public class DFA implements DFAInterface{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'swap'");
     }
+
+    public String toString(){
+        StringBuilder str = new StringBuilder();
+
+        str.append("Q = { ").append(states.toString()
+            .replace("[", "")
+            .replace("]", "")
+            .replace(",", ""))
+            .append(" }\n")
+            .append("Sigma = { ").append(getSigma().toString().replace("[", "")
+            .replace("]", "")
+            .replace(",", ""))
+            .append(" }\n")
+            .append("delta = \n\t");
+
+            for(Character symb : getSigma()){
+                str.append(symb).append("\t");
+            }
+            str.append("\n");
+
+            for(State state: states){
+                str.append(getState(state.getName())).append("\t");
+                for(Character symb : getSigma()){
+                    State next = transitions.getOrDefault(state, new HashMap<>()).get(symb);
+                    if(next == null){
+                        str.append("err\t");
+                    }else{
+                        str.append(next.getName()).append("\t");
+                    }
+                }
+                str.append("\n")
+            }
+            str.append("\n");
+            str.append("q0 = ").append(start).append("\n");
+            str.append("F = { ").append(finalStates.toString().replace("[", "")
+            .replace("]", "")
+            .replace(",", ""))
+            .append(" }\n");
+            
+            return str.toString();
+    }
     
 }
