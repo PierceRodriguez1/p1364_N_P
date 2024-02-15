@@ -156,12 +156,8 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean isStart(String name) {
-        //checking if state name given is a start state and then return true or false
-        if (start.getName() == name){
-            return true;
-        }
-        return false;
-        
+    // Check if the start state is not null and has the provided name
+    return start != null && start.getName().equals(name);
     }
 
     @Override
