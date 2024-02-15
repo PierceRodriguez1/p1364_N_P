@@ -44,14 +44,12 @@ public class DFA implements DFAInterface{
 
     @Override
     public boolean setFinal(String name) {
-        //setting our final state by removing it from regular states hashset and 
         //adding it to our final states
-        states.remove(name);
         return finalStates.add(new DFAState(name));
         
     }
 
-    @Override
+    @Override   
     public boolean setStart(String name) {
       //creates a new state to become a start state.
         return start.setName(name);
