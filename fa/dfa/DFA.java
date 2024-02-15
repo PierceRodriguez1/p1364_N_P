@@ -39,7 +39,15 @@ public class DFA implements DFAInterface{
     @Override
     public boolean addState(String name){
        //adding a new state to our states hashset
-       return states.add(new DFAState(name));
+       DFAState newState = new DFAState(name);
+
+       // Check if the state already exists
+       if (states.contains(newState) || finalStates.contains(newState) || (start != null && start.getName().equals(name))) {
+           return false; // State already exists
+       }
+   
+       // If the state doesn't exist, add it to the set of states
+       return states.add(newState);
 
     }
 
