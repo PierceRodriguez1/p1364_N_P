@@ -181,6 +181,23 @@ public class DFA implements DFAInterface{
         
     }
 
+    private DFAState getDFAState(String stateName) {
+        for (DFAState state : states) {
+            if (state.getName().equals(stateName)) {
+                return state;
+            }
+        }
+        for (DFAState finalState : finalStates) {
+            if (finalState.getName().equals(stateName)) {
+                return finalState;
+            }
+        }
+        if (start != null && start.getName().equals(stateName)) {
+            return start;
+        }
+        return null;    }
+
+
     @Override
     public DFA swap(char symb1, char symb2) {
         // TODO Auto-generated method stub
