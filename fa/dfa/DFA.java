@@ -54,8 +54,17 @@ public class DFA implements DFAInterface{
     @Override
     public boolean setFinal(String name) {
         //adding it to our final states
-        return finalStates.add(new DFAState(name));
+       // return finalStates.add(new DFAState(name));
         
+       DFAState existingState = getDFAState(name);
+
+       // Check if the state exists before marking it as final
+       if (existingState != null) {
+           return finalStates.add(existingState);
+       }
+   
+       // If the state doesn't exist, return false
+       return false;
     }
 
     @Override   
