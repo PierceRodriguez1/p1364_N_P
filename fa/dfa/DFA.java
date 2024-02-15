@@ -3,6 +3,7 @@ package fa.dfa;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class DFA implements DFAInterface{
     private Set<DFAState> finalStates;
     private Set<Character> alphabet;
 
-    private Map<Character, DFAState> transitions;
+    private LinkedHashMap<Character, DFAState> transitions;
     //Instantiating our start DFAState
     private DFAState start;
 
@@ -32,7 +33,7 @@ public class DFA implements DFAInterface{
         states = new HashSet<>();
         finalStates = new HashSet<>();
         alphabet = new HashSet<>();
-        transitions = new HashMap<>();
+        transitions = new LinkedHashMap<>();
         start = null;
     }
     @Override
@@ -197,7 +198,8 @@ public class DFA implements DFAInterface{
             for(State state: states){
                 str.append(getState(state.getName())).append("\t");
                 for(Character symb : getSigma()){
-                    State next = transitions.getOrDefault(state, new HashMap<>()).get(symb);
+                    //State next = transitions.getOrDefault(state, new HashMap<>()).get(symb);
+                    State next = transitions.getOrDefault(new HashMap<>().get(symb), (DFAState) state);
                     if(next == null){
                         str.append("err\t");
                     }else{
