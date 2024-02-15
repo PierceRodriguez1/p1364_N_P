@@ -30,7 +30,7 @@ public class DFAState extends State{
      * @param symbol
      * @param nextState
      */
-    public void addStateTransition(char symbol, State nextState){
+    public void addStateTransition(char symbol, DFAState nextState){
         transitionMap.put(symbol, nextState);
     }
 
