@@ -19,8 +19,8 @@ import fa.State;
 public class DFA implements DFAInterface{
     
     //Instantiating our hashsets for regular states, final states and our alphabet
-    private LinkedHashSet<DFAState> states;
-    private LinkedHashSet<DFAState> finalStates;
+    private LinkedHashMap<String, DFAState> states;
+    private LinkedHashMap<String, DFAState> finalStates;
     private LinkedHashSet<Character> alphabet;
 
     private LinkedHashMap<Character, DFAState> transitions;
@@ -31,8 +31,8 @@ public class DFA implements DFAInterface{
      * Constructor that initializes empty DFA
      */
     public DFA(){
-        states = new LinkedHashSet<>();
-        finalStates = new LinkedHashSet<>();
+        states = new LinkedHashMap<>();
+        finalStates = new LinkedHashMap<>();
         alphabet = new LinkedHashSet<>();
         transitions = new LinkedHashMap<>();
         start = null;
@@ -58,11 +58,11 @@ public class DFA implements DFAInterface{
        // return finalStates.add(new DFAState(name));
         
        DFAState existingState = getDFAState(name);
-
+       existingState = states.get(name);
        // Check if the state exists before marking it as final
-       if (existingState != null) {
-           return finalStates.add(existingState);
-       }
+//       if (existingState != null) {
+//           return finalStates.add(existingState);
+//       }
    
        // If the state doesn't exist, return false
        return false;
