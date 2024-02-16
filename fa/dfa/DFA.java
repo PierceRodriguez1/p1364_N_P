@@ -131,11 +131,11 @@ public class DFA implements DFAInterface{
         DFAState getState = new DFAState(name); //creating a new state to check against hashset instead of string
 
         if(states.contains(getState) == true){
-            return new DFAState(name);
+            return getState;
         } else if(finalStates.contains(getState) == true){
-            return new DFAState(name);
+            return getState;
         } else if (start.getName() == name){
-            return new DFAState(name);
+            return getState;
         }
 
         return null;
