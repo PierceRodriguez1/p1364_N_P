@@ -43,12 +43,13 @@ public class DFA implements DFAInterface{
           DFAState newState = new DFAState(name);
 
     // Check if the state already exists
-    if (states.contains(newState) || finalStates.contains(newState) || (start != null && start.getName().equals(name))) {
+    if (states.containsValue(newState) || finalStates.containsValue(newState) || (start != null && start.getName().equals(name))) {
         return false; // State already exists
     }
 
     // If the state doesn't exist, add it to the set of states
-    return states.add(newState);
+    states.put(name, newState);
+    return true;
 
     }
 
@@ -77,7 +78,7 @@ public class DFA implements DFAInterface{
     
         // Create a new start state and set its name
         start = new DFAState(name);
-        states.add(start); // Add the start state to the set of states
+        states.put(name, start); // Add the start state to the set of states
     
         return true;
     
@@ -101,7 +102,7 @@ public class DFA implements DFAInterface{
         if(state == null){
             return false;
         }else if(s.length() == 1){
-            if(finalStates.contains(state.getTransitionState(s.charAt(0)))){
+            if(finalStates.containsValue(state.getTransitionState(s.charAt(0)))){
             return true;
         }
         return false;
@@ -131,9 +132,9 @@ public class DFA implements DFAInterface{
         //to see if it's created
         DFAState getState = new DFAState(name); //creating a new state to check against hashset instead of string
 
-        if(states.contains(getState) == true){
+        if(states.containsValue(getState) == true){
             return (State) getState;
-        } else if(finalStates.contains(getState) == true){
+        } else if(finalStates.containsValue(getState) == true){
             return (State) getState;
         } else if (start.getName() == name){
             return (State) getState;
@@ -149,7 +150,7 @@ public class DFA implements DFAInterface{
         DFAState isFinal = new DFAState(name);
         //checking if state name given is a final state and then return true or false
        
-        return isFinal != null && finalStates.contains(isFinal);
+        return isFinal != null && finalStates.containsValue(isFinal);
      /*   
         if(finalStates.contains(isFinal) == true){
             return true;
@@ -208,6 +209,7 @@ public class DFA implements DFAInterface{
     }
 
     private DFAState getDFAState(String stateName) {
+       /* 
         for (DFAState state : states) {
             if (state.getName().equals(stateName)) {
                 return state;
@@ -221,7 +223,12 @@ public class DFA implements DFAInterface{
         if (start != null && start.getName().equals(stateName)) {
             return start;
         }
-        return null;    }
+        return null;   
+        
+        */
+        return states.get(stateName);
+    
+    }
 
 
     @Override
@@ -229,9 +236,9 @@ public class DFA implements DFAInterface{
         DFA newDFA = new DFA();
 
         // Copy states
-        for (DFAState state : states) {
+        for (DFAState state : states.values()) {
             newDFA.addState(state.getName());
-            if (finalStates.contains(state.getName())) {
+            if (finalStates.containsValue(state)) {
                 newDFA.setFinal(state.getName());
             }
         }
@@ -242,28 +249,36 @@ public class DFA implements DFAInterface{
         }
     
         // Copy transitions
-        for (DFAState fromState : states) {
+        for (Map.Entry<String, DFAState> entry : states.entrySet()) {
+            String stateName = entry.getKey();
+            DFAState fromState = entry.getValue();
+    
             for (Character symbol : alphabet) {
                 DFAState toState = (DFAState) fromState.getTransitionState(symbol);
                 if (toState != null) {
-                    newDFA.addTransition(fromState.getName(), toState.getName(), symbol);
+                    newDFA.addTransition(stateName, toState.getName(), symbol);
                 }
             }
         }
     
         // Swap symbols in transitions
-        for (DFAState fromState : newDFA.states) {
-            for (Character symbol : newDFA.alphabet) {
+        for (Map.Entry<String, DFAState> entry : states.entrySet()) {
+            String stateName = entry.getKey();
+            DFAState fromState = entry.getValue();
+    
+            for (Character symbol : alphabet) {
                 DFAState toState = (DFAState) fromState.getTransitionState(symbol);
                 if (toState != null) {
                     fromState.removeTransition(symbol);
-                    newDFA.addTransition(fromState.getName(), toState.getName(), (symbol == symb1) ? symb2 : (symbol == symb2) ? symb1 : symbol);
+                    newDFA.addTransition(stateName, toState.getName(), (symbol == symb1) ? symb2 : (symbol == symb2) ? symb1 : symbol);
                 }
             }
         }
     
         // Copy start state
-        newDFA.setStart(start.getName());
+        if (start != null) {
+            newDFA.setStart(start.getName());
+        }
     
         return newDFA;
     }
@@ -271,7 +286,7 @@ public class DFA implements DFAInterface{
     public String toString(){
         StringBuilder str = new StringBuilder();
 
-        str.append("Q = { ").append(states.toString()
+        str.append("Q = { ").append(states.keySet().toString()
             .replace("[", "")
             .replace("]", "")
             .replace(",", ""))
@@ -281,32 +296,41 @@ public class DFA implements DFAInterface{
             .replace(",", ""))
             .append(" }\n")
             .append("delta = \n\t");
-
-            for(Character symb : getSigma()){
-                str.append(symb).append("\t");
-            }
-            str.append("\n");
-
-            for(State state: states){
-                str.append(getState(state.getName())).append("\t");
-                for(Character symb : getSigma()){
-                    State next = transitions.getOrDefault(new HashMap<>().get(symb), (DFAState) state);
-                    if(next == null){
-                        str.append("err\t");
-                    }else{
-                        str.append(next.getName()).append("\t");
-                    }
+    
+        for (Character symb : getSigma()) {
+            str.append(symb).append("\t");
+        }
+        str.append("\n");
+    
+        for (Map.Entry<String, DFAState> entry : states.entrySet()) {
+            String stateName = entry.getKey();
+            str.append(getState(stateName)).append("\t");
+    
+            for (Character symb : getSigma()) {
+                DFAState nextState = (DFAState) transitions.getOrDefault(new HashMap<>(), entry.getValue()).get(symb);
+    
+                if (nextState == null) {
+                    str.append("err\t");
+                } else {
+                    str.append(nextState.getName()).append("\t");
                 }
-                str.append("\n");
             }
             str.append("\n");
+        }
+    
+        str.append("\n");
+        if (start != null) {
             str.append("q0 = ").append(start).append("\n");
-            str.append("F = { ").append(finalStates.toString().replace("[", "")
+        } else {
+            str.append("q0 = \n");
+        }
+    
+        str.append("F = { ").append(finalStates.keySet().toString().replace("[", "")
             .replace("]", "")
             .replace(",", ""))
             .append(" }\n");
-            
-            return str.toString();
+    
+        return str.toString();
     }
     
 }
