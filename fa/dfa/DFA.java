@@ -147,11 +147,15 @@ public class DFA implements DFAInterface{
     public boolean isFinal(String name) {
         DFAState isFinal = new DFAState(name);
         //checking if state name given is a final state and then return true or false
+       
+        return isFinal != null && finalStates.contains(isFinal);
+     /*   
         if(finalStates.contains(isFinal) == true){
             return true;
         }
         System.out.println(name + " is not a final state");
         return false;
+        */
     }
 
     @Override
