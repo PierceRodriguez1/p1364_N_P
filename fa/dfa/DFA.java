@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,9 +19,9 @@ import fa.State;
 public class DFA implements DFAInterface{
     
     //Instantiating our hashsets for regular states, final states and our alphabet
-    private Set<DFAState> states;
-    private Set<DFAState> finalStates;
-    private Set<Character> alphabet;
+    private LinkedHashSet<DFAState> states;
+    private LinkedHashSet<DFAState> finalStates;
+    private LinkedHashSet<Character> alphabet;
 
     private LinkedHashMap<Character, DFAState> transitions;
     //Instantiating our start DFAState
@@ -30,9 +31,9 @@ public class DFA implements DFAInterface{
      * Constructor that initializes empty DFA
      */
     public DFA(){
-        states = new HashSet<>();
-        finalStates = new HashSet<>();
-        alphabet = new HashSet<>();
+        states = new LinkedHashSet<>();
+        finalStates = new LinkedHashSet<>();
+        alphabet = new LinkedHashSet<>();
         transitions = new LinkedHashMap<>();
         start = null;
     }
