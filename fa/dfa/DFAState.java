@@ -2,6 +2,7 @@ package fa.dfa;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import fa.State;
 /**
@@ -62,6 +63,23 @@ public class DFAState extends State{
     }
     public void removeTransition(Character symbol) {
        transitionMap.remove(symbol);
+    }
+//added this
+        @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        DFAState other = (DFAState) obj;
+        return Objects.equals(this.getName(), other.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getName());
     }
 
 }
